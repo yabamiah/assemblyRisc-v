@@ -1,0 +1,44 @@
+.data
+eol: .string "\n"
+
+.text
+
+main:
+    li a7, 5
+    ecall
+    mv t0, a0 # scanf("%d", &t0)
+
+    
+    addi t1, zero, 0  # int t1 = 0
+    li t3, -2147483648
+
+    for: # Criando o laço for que irá iterar t0 vezes
+    beq t1, t0, done # t0 = i, t1 = 0
+
+    li a7, 5
+    ecall
+    mv t2, a0 # scanf("%d", &t2)
+
+    addi t1, t1, 1 # t1++
+
+    bgt t2, t3, sai # Se t2 for maior que t3, então vá ara 'sai'
+    j for
+
+    sai:
+    mv t3, t2  # t3 = t2
+    j for
+
+
+    done:
+
+    mv a0, t3
+    li a7, 1
+    ecall
+
+    la a0, eol
+    li a7, 4
+    ecall
+
+    li a0, 0
+    li a7, 10
+    ecall
